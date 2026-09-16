@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import java.time.LocalDate;
 import java.util.Map;
 
 public class AnalysisSummaryActivity extends Activity {
@@ -32,8 +33,11 @@ public class AnalysisSummaryActivity extends Activity {
         b.timezone = getIntent().getStringExtra("timezone");
         if (b.date == null) b.date = "2000-01-01";
         if (b.time == null) b.time = "12:00:00";
+        int y, m, d;
+        try { LocalDate ld = LocalDate.parse(b.date); y=ld.getYear(); m=ld.getMonthValue(); d=ld.getDayOfMonth(); }
+        catch (Exception e) { y=2000; m=1; d=1; }
 
-        int life = NumerologyEngine.lifePath(b.date);
+        int life = NumerologyEngine.lifePath(y,m,d);
         int nameNumber = NumerologyEngine.nameValue(b.name == null ? "" : b.name);
         Map<String,String> report = ResearchReportEngine.buildReport(b, life, nameNumber);
         for (Map.Entry<String,String> e : report.entrySet()) {
