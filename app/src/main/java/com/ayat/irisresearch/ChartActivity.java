@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.content.Intent;
 import android.widget.*;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -26,15 +27,30 @@ public class ChartActivity extends Activity {
             StringBuilder s=new StringBuilder();
             for(int i=0;i<p.size();i++)
                 s.append(AstrologyEngine.PLANETS[i]).append(": ").append(Math.round(p.get(i)*100)/100.0)
-                 .append("° — ").append(AstrologyEngine.signName(p.get(i))).append("\\n");
-            s.append("\\nجنبه‌ها:\\n");
-            for(String a:AstrologyEngine.aspects(p)) s.append(a).append("\\n");
+                 .append("° — ").append(AstrologyEngine.signName(p.get(i))).append("\n");
+            s.append("\nجنبه‌ها:\n");
+            for(String a:AstrologyEngine.aspects(p)) s.append(a).append("\n");
             double moonSid=VedicEngine.sidereal(p.get(1));
-            s.append("\\nودیک — راشی ماه: ").append(VedicEngine.rashi(moonSid))
-             .append("\\nناکشترا: ").append(VedicEngine.nakshatra(moonSid));
+            s.append("\nودیک — راشی ماه: ").append(VedicEngine.rashi(moonSid))
+             .append("\nناکشترا: ").append(VedicEngine.nakshatra(moonSid));
             report.setText(s.toString());
         }catch(Exception e){ report.setText("خطا در محاسبه: "+e.getMessage()); }
         ScrollView sv=new ScrollView(this); sv.addView(report); box.addView(sv,new LinearLayout.LayoutParams(-1,0,1));
+
+        Button research = new Button(this);
+        research.setText("گزارش جامع رابطه، سال‌های قابل بررسی، شغل، سلامت و سرمایه‌گذاری");
+        research.setOnClickListener(v -> {
+            Intent i = new Intent(this, AnalysisSummaryActivity.class);
+            i.putExtra("name", getIntent().getStringExtra("name"));
+            i.putExtra("date", date);
+            i.putExtra("time", time);
+            i.putExtra("city", getIntent().getStringExtra("city"));
+            i.putExtra("latitude", getIntent().getDoubleExtra("latitude",0));
+            i.putExtra("longitude", getIntent().getDoubleExtra("longitude",0));
+            i.putExtra("timezone", getIntent().getStringExtra("timezone"));
+            startActivity(i);
+        });
+        box.addView(research,new LinearLayout.LayoutParams(-1,-2));
         setContentView(box);
     }
 }
