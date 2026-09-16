@@ -1,25 +1,37 @@
 {
-  "version": 1,
-  "purpose": "Sources used to frame the research layer and its limitations",
+  "version": 2,
+  "purpose": "Sources used to frame the comprehensive astrology research layer and its limitations",
   "sources": [
     {
       "topic": "astrology_evidence",
       "title": "The sun's position at birth is unrelated to subjective well-being: Debunking astrological claims",
       "url": "https://doi.org/10.1111/kykl.12395",
-      "note": "A 2024 study using a nationally representative U.S. sample reported no robust association between zodiac signs and measured well-being outcomes."
+      "note": "2024 study using a nationally representative U.S. sample (N=12,791); analyses found no robust association between Western zodiac signs and eight measured well-being outcomes."
+    },
+    {
+      "topic": "health_astrology_evidence",
+      "title": "Testing multiple statistical hypotheses resulted in spurious associations: a study of astrological signs and health",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16895820/",
+      "note": "Large Ontario population study illustrating how multiple-hypothesis testing can produce apparently significant astrological-health associations that require validation."
     },
     {
       "topic": "investment_risk",
-      "title": "SEC Roadmap: Risk",
-      "url": "https://www.sec.gov/investor/pubs/roadmap/risk.htm",
-      "note": "Explains investment risk, time horizon and diversification."
+      "title": "Asset Allocation and Diversification",
+      "url": "https://www.investor.gov/introduction-investing/getting-started/asset-allocation",
+      "note": "Investor.gov explains asset allocation, time horizon, risk tolerance and diversification."
     },
     {
       "topic": "investment_diversification",
-      "title": "Asset Allocation and Diversification",
-      "url": "https://www.investor.gov/introduction-investing/getting-started/asset-allocation",
-      "note": "Explains asset allocation, risk tolerance, time horizon and diversification."
+      "title": "Diversify Your Investments",
+      "url": "https://www.investor.gov/introduction-investing/investing-basics/save-and-invest/diversify-your-investments",
+      "note": "Investor.gov explains diversification as a way to reduce concentration risk; it does not guarantee against losses."
+    },
+    {
+      "topic": "investment_education",
+      "title": "Beginners' Guide to Asset Allocation, Diversification, and Rebalancing",
+      "url": "https://www.investor.gov/additional-resources/general-resources/publications-research/info-sheets/beginners-guide-asset",
+      "note": "Investor education on risk/reward, time horizon, asset allocation, diversification and rebalancing."
     }
   ],
-  "method_note": "Astrological marriage, career, health and investment correspondences in this app are traditional/symbolic research material. They are not medical diagnoses, financial recommendations, or scientifically validated predictions."
+  "method_note": "Western, Vedic, Chinese, numerology, marriage timing, career, health and investment correspondences in this app are presented as traditional/cultural/symbolic research material. They are not medical diagnoses, financial recommendations, or scientifically validated predictions. Exact astronomical chart calculations also require validated ephemeris data; the current engine labels its planetary calculations as approximate."
 }
