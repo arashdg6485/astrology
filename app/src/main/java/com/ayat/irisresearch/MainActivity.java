@@ -41,11 +41,15 @@ public class MainActivity extends Activity {
                 throw new IllegalArgumentException("نام، تاریخ، ساعت و شهر را وارد کنید.");
 
             String greg=JalaliDateConverter.toGregorian(jalali);
-            int lifePath=NumerologyEngine.lifePath(greg);
-
+            if (time.length()==5) time += ":00";
             Intent intent = new Intent(this, ChartActivity.class);
+            intent.putExtra("name", name);
             intent.putExtra("date", greg);
-            intent.putExtra("time", tm.length()==5 ? tm+":00" : tm);
+            intent.putExtra("time", time);
+            intent.putExtra("city", city.name);
+            intent.putExtra("latitude", city.latitude);
+            intent.putExtra("longitude", city.longitude);
+            intent.putExtra("timezone", city.timezone);
             startActivity(intent);
             resultText.setText(
                 "اطلاعات تولد\n\n"+
@@ -57,8 +61,7 @@ public class MainActivity extends Activity {
                 "عرض جغرافیایی: "+city.latitude+"\n"+
                 "طول جغرافیایی: "+city.longitude+"\n"+
                 "منطقه زمانی: "+city.timezone+"\n\n"+
-                "عدد مسیر زندگی: "+lifePath+"\n\n"+
-                "این مرحله هسته ورود اطلاعات و زیرساخت پروژه است؛ موتورهای کامل محاسبات و گزارش در مراحل بعدی اضافه می‌شوند."
+                "گزارش شامل آسترولوژی غربی، ودیک، چینی، عددشناسی و بخش‌های پژوهشی رابطه، شغل، سلامت و سرمایه‌گذاری است."
             );
         } catch(Exception e) {
             resultText.setText("خطا: "+e.getMessage());
