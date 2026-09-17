@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 
 public class AnalysisSummaryActivity extends Activity {
@@ -32,8 +34,11 @@ public class AnalysisSummaryActivity extends Activity {
         title.setGravity(Gravity.CENTER);
         content.addView(title, new LinearLayout.LayoutParams(-1,-2));
 
-        TextView intro = section("این گزارش بخش‌های موجود در نسخه پژوهشی برنامه را یکی‌یکی ارائه می‌کند. هر بخش مستقل است و می‌توان آن را برای مطالعه و مقایسه بررسی کرد. محتوای آسترولوژی/عددشناسی نمادین است و جایگزین پزشکی، تغذیه، مشاوره مالی یا تصمیم‌گیری حرفه‌ای نیست.", false);
+        TextView intro = section("این گزارش بخش‌های موجود در نسخه پژوهشی برنامه را یکی‌یکی ارائه می‌کند: داده‌های پایه، آسترولوژی غربی و سیاره‌به‌سیاره، شخصیت و تصمیم‌گیری، جنبه‌ها، خانه‌ها و طالع، عشق و ازدواج، تحلیل زوجین، سال‌های قابل بررسی ازدواج، تغذیه و رژیم، شغل، پول، سرمایه‌گذاری، سلامت، خانواده، تحصیل، سفر و مهاجرت، معنویت، ودیک/Jyotish، چینی/BaZi، عددشناسی، ترانزیت‌ها و منابع. تفسیرهای آسترولوژی و عددشناسی سنتی/نمادین هستند و جایگزین پزشکی، تغذیه، مشاوره مالی یا تصمیم‌گیری حرفه‌ای نیستند.", false);
         content.addView(intro);
+
+        TextView index = section("فهرست بخش‌ها\n۱) داده‌های پایه\n۲) آسترولوژی غربی — تحلیل سیاره به سیاره\n۳) شخصیت و سبک تصمیم‌گیری\n۴) جنبه‌ها و اثر ترکیبی\n۵) خانه‌ها و محورهای اصلی\n۶) عشق، رابطه و ازدواج\n۷) تحلیل زوجین\n۸) سال‌ها و سنین قابل بررسی برای ازدواج\n۹) تغذیه و الگوی غذایی مناسب\n۱۰) شغل و استعدادهای کاری\n۱۱) پول و مدیریت منابع\n۱۲) سرمایه‌گذاری\n۱۳) سلامت نمادین\n۱۴) خانواده و خانه\n۱۵) تحصیل و یادگیری\n۱۶) سفر و مهاجرت\n۱۷) معنویت و رشد شخصی\n۱۸) ودیک/Jyotish\n۱۹) آسترولوژی چینی/BaZi\n۲۰) عددشناسی کامل\n۲۱) ترانزیت‌ها و دوره‌های مهم\n۲۲) منابع و اعتبار پژوهشی", true);
+        content.addView(index);
 
         Button couple = new Button(this);
         couple.setText("تحلیل زوجین / مقایسه دو چارت");
@@ -61,6 +66,14 @@ public class AnalysisSummaryActivity extends Activity {
         Map<String,String> report = ResearchReportEngine.buildReport(b, life, nameNumber);
         for (Map.Entry<String,String> e : report.entrySet()) {
             content.addView(section(e.getKey() + "\n\n" + e.getValue(), true));
+        }
+
+        try {
+            String time = b.time.length() == 5 ? b.time + ":00" : b.time;
+            List<Double> positions = AstrologyEngine.approximateLongitudes(LocalDateTime.parse(b.date + "T" + time));
+            content.addView(section("تغذیه و رژیم — جزئیات تکمیلی\n\n" + NutritionResearch.build(AstrologyEngine.sign(positions.get(0)), AstrologyEngine.sign(positions.get(1))), true));
+        } catch (Exception ignored) {
+            content.addView(section("تغذیه و رژیم — جزئیات تکمیلی\n\nبرای نمایش این بخش، تاریخ و ساعت تولد باید معتبر باشند.", true));
         }
 
         ScrollView sv = new ScrollView(this);
